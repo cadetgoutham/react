@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.Card {
+  border: 1px solid  #CD7F32;
+    width: 29%;
+    height: 14em;
+    margin: 0 auto;
+    margin-top: 2%;
+    border-radius: 10px;
+    background-color:  #CD7F32;
+    color: white;
+
+}
+.Page{
+  width: 100%;
+  height: 100%;
+}
+p.Debit-Card-No {
+  text-align: center;
+    height: 21%;
+    font-size: 17px;
+}
+p.Bank-Name {
+  padding-left: 3%;
+  font-size: 20px;
+}
+.Card-details {
+  display: flex;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+
+.Card-List{
+  margin: 0 auto;
+  width: 57%;
+}
+.Card-List > h3 {
+  text-align: center;
+}
+.Home-Page {
+  border: 1px solid;
+  width: 73%;
+  margin: 0 auto;
+  height: 948px;
+}
+.Card-Btn > button {
+  background-color: #B2FFFF;
+    height: 3em;
+    width: 6em;
+    margin-right: 3.5em;
+    border-radius: 6px;
+}
