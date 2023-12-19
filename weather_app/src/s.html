@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        fieldset#cbi-wireless-wifi-device {
+            border: none;
+        }
+        div#cbi-section-wrap-wifi2 {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="cbi-map" id="cbi-wireless">
+        <!-- /nsection -->
+        <fieldset class="cbi-section" id="cbi-wireless-wifi-device">
+            <div class="cbi-section-descr"></div>
+            <div class="cbi-section-wrap" id="cbi-section-wrap-wifi1">
+                <ul class="cbi-tabmenu">
+                    <!-- <script type="text/javascript">cbi_c['container.wireless.wifi1.general'] = 19;</script> -->
+                    <li id="tab.wireless.wifi1.general" class="cbi-tab">
+                        <a onclick="this.blur(); return cbi_t_switch('wireless.wifi1', 'general')"
+                            href="/cgi-bin/luci/;stok=af5f30d1c08559148f3fdd3df265166a/admin/network/radio_config?tab.wireless.wifi1=general">5GHz
+                            Radio 1</a>
+                        <input type="hidden" id="tab.wireless.wifi1" name="tab.wireless.wifi1" value="general">
+                    </li>
+                </ul>
+                <fieldset class="cbi-section-node cbi-section-node-tabbed" id="cbi-wireless-wifi1">
+                    <div class="cbi-tabcontainer" id="container.wireless.wifi1.general">
+                        <div class="cbi-value" id="cbi-wireless-wifi1-country"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi1.country_label">Country Code</label>
+                            <div class="cbi-value-field">
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.country" name="cbid.wireless.wifi1.country" size="1">
+                                    <option id="cbi-wireless-wifi1-country-IN" value="IN" selected="selected">IN - India
+                                    </option>
+                                    <option id="cbi-wireless-wifi1-country-AE" value="AE">AE - United Arab Emirates</option>
+                                    <option id="cbi-wireless-wifi1-country-AL" value="AL">AL - Albania</option>
+                                    <option id="cbi-wireless-wifi1-country-AR" value="AR">AR - Argentina</option>
+                                    <option id="cbi-wireless-wifi1-country-AT" value="AT">AT - Austria</option>
+                                    <option id="cbi-wireless-wifi1-country-AU" value="AU">AU - Australia</option>
+                                    <option id="cbi-wireless-wifi1-country-AZ" value="AZ">AZ - Azerbaijan</option>
+                                    <option id="cbi-wireless-wifi1-country-BE" value="BE">BE - Belgium</option>
+                                    <option id="cbi-wireless-wifi1-country-BG" value="BG">BG - Bulgaria</option>
+                                    <option id="cbi-wireless-wifi1-country-BN" value="BN">BN - Brunei Darussalam</option>
+                                    <option id="cbi-wireless-wifi1-country-BO" value="BO">BO - Bolivia</option>
+                                    <option id="cbi-wireless-wifi1-country-BR" value="BR">BR - Brazil</option>
+                                    <option id="cbi-wireless-wifi1-country-BY" value="BY">BY - Belarus</option>
+                                    <option id="cbi-wireless-wifi1-country-BZ" value="BZ">BZ - Belize</option>
+                                    <option id="cbi-wireless-wifi1-country-CA" value="CA">CA - Canada</option>
+                                    <option id="cbi-wireless-wifi1-country-CH" value="CH">CH - Switzerland</option>
+                                    <option id="cbi-wireless-wifi1-country-CL" value="CL">CL - Chile</option>
+                                    <option id="cbi-wireless-wifi1-country-CN" value="CN">CN - China</option>
+                                    <option id="cbi-wireless-wifi1-country-CO" value="CO">CO - Colombia</option>
+                                    <option id="cbi-wireless-wifi1-country-CY" value="CY">CY - Cyprus</option>
+                                    <option id="cbi-wireless-wifi1-country-CZ" value="CZ">CZ - Czech Republic</option>
+                                    <option id="cbi-wireless-wifi1-country-DE" value="DE">DE - Germany</option>
+                                    <option id="cbi-wireless-wifi1-country-DK" value="DK">DK - Denmark</option>
+                                    <option id="cbi-wireless-wifi1-country-DO" value="DO">DO - Dominican Republic</option>
+                                    <option id="cbi-wireless-wifi1-country-DZ" value="DZ">DZ - Algeria</option>
+                                    <option id="cbi-wireless-wifi1-country-EE" value="EE">EE - Estonia</option>
+                                    <option id="cbi-wireless-wifi1-country-ES" value="ES">ES - Spain</option>
+                                    <option id="cbi-wireless-wifi1-country-FI" value="FI">FI - Finland</option>
+                                    <option id="cbi-wireless-wifi1-country-FR" value="FR">FR - France</option>
+                                    <option id="cbi-wireless-wifi1-country-GB" value="GB">GB - United Kingdom</option>
+                                    <option id="cbi-wireless-wifi1-country-GE" value="GE">GE - Georgia</option>
+                                    <option id="cbi-wireless-wifi1-country-GR" value="GR">GR - Greece</option>
+                                    <option id="cbi-wireless-wifi1-country-GT" value="GT">GT - Guatemala</option>
+                                    <option id="cbi-wireless-wifi1-country-HK" value="HK">HK - Hong Kong</option>
+                                    <option id="cbi-wireless-wifi1-country-HN" value="HN">HN - Honduras</option>
+                                    <option id="cbi-wireless-wifi1-country-HR" value="HR">HR - Croatia</option>
+                                    <option id="cbi-wireless-wifi1-country-HU" value="HU">HU - Hungary</option>
+                                    <option id="cbi-wireless-wifi1-country-IE" value="IE">IE - Ireland</option>
+                                    <option id="cbi-wireless-wifi1-country-IL" value="IL">IL - Israel</option>
+                                    <option id="cbi-wireless-wifi1-country-IS" value="IS">IS - Iceland</option>
+                                    <option id="cbi-wireless-wifi1-country-IT" value="IT">IT - Italy</option>
+                                    <option id="cbi-wireless-wifi1-country-JM" value="JM">JM - Jamaica</option>
+                                    <option id="cbi-wireless-wifi1-country-JO" value="JO">JO - Jordan</option>
+                                    <option id="cbi-wireless-wifi1-country-JP" value="JP">JP - Japan</option>
+                                    <option id="cbi-wireless-wifi1-country-KE" value="KE">KE - Kenya</option>
+                                    <option id="cbi-wireless-wifi1-country-KR" value="KR">KR - South Korea</option>
+                                    <option id="cbi-wireless-wifi1-country-KW" value="KW">KW - Kuwait</option>
+                                    <option id="cbi-wireless-wifi1-country-LB" value="LB">LB - Lebanon</option>
+                                    <option id="cbi-wireless-wifi1-country-LI" value="LI">LI - Liechtenstein</option>
+                                    <option id="cbi-wireless-wifi1-country-LT" value="LT">LT - Lithuania</option>
+                                    <option id="cbi-wireless-wifi1-country-LU" value="LU">LU - Luxembourg</option>
+                                    <option id="cbi-wireless-wifi1-country-LV" value="LV">LV - Latvia</option>
+                                    <option id="cbi-wireless-wifi1-country-MA" value="MA">MA - Morocco</option>
+                                    <option id="cbi-wireless-wifi1-country-MC" value="MC">MC - Monaco</option>
+                                    <option id="cbi-wireless-wifi1-country-MK" value="MK">MK - Macedonia</option>
+                                    <option id="cbi-wireless-wifi1-country-MO" value="MO">MO - Macao</option>
+                                    <option id="cbi-wireless-wifi1-country-MX" value="MX">MX - Mexico</option>
+                                    <option id="cbi-wireless-wifi1-country-MY" value="MY">MY - Malaysia</option>
+                                    <option id="cbi-wireless-wifi1-country-NG" value="NG">NG - Nigeria</option>
+                                    <option id="cbi-wireless-wifi1-country-NI" value="NI">NI - Nicaragua</option>
+                                    <option id="cbi-wireless-wifi1-country-NL" value="NL">NL - Netherlands</option>
+                                    <option id="cbi-wireless-wifi1-country-NO" value="NO">NO - Norway</option>
+                                    <option id="cbi-wireless-wifi1-country-NZ" value="NZ">NZ - New Zealand</option>
+                                    <option id="cbi-wireless-wifi1-country-OM" value="OM">OM - Oman</option>
+                                    <option id="cbi-wireless-wifi1-country-PA" value="PA">PA - Panama</option>
+                                    <option id="cbi-wireless-wifi1-country-PE" value="PE">PE - Peru</option>
+                                    <option id="cbi-wireless-wifi1-country-PH" value="PH">PH - Philippines</option>
+                                    <option id="cbi-wireless-wifi1-country-PK" value="PK">PK - Pakistan</option>
+                                    <option id="cbi-wireless-wifi1-country-PL" value="PL">PL - Poland</option>
+                                    <option id="cbi-wireless-wifi1-country-PR" value="PR">PR - Puerto Rico</option>
+                                    <option id="cbi-wireless-wifi1-country-PT" value="PT">PT - Portugal</option>
+                                    <option id="cbi-wireless-wifi1-country-PY" value="PY">PY - Paraguay</option>
+                                    <option id="cbi-wireless-wifi1-country-QA" value="QA">QA - Qatar</option>
+                                    <option id="cbi-wireless-wifi1-country-RO" value="RO">RO - Romania</option>
+                                    <option id="cbi-wireless-wifi1-country-RU" value="RU">RU - Russian Federation</option>
+                                    <option id="cbi-wireless-wifi1-country-SA" value="SA">SA - Saudi Arabia</option>
+                                    <option id="cbi-wireless-wifi1-country-SE" value="SE">SE - Sweden</option>
+                                    <option id="cbi-wireless-wifi1-country-SG" value="SG">SG - Singapore</option>
+                                    <option id="cbi-wireless-wifi1-country-SI" value="SI">SI - Slovenia</option>
+                                    <option id="cbi-wireless-wifi1-country-SK" value="SK">SK - Slovakia</option>
+                                    <option id="cbi-wireless-wifi1-country-TH" value="TH">TH - Thailand</option>
+                                    <option id="cbi-wireless-wifi1-country-TN" value="TN">TN - Tunisia</option>
+                                    <option id="cbi-wireless-wifi1-country-TR" value="TR">TR - Turkey</option>
+                                    <option id="cbi-wireless-wifi1-country-TT" value="TT">TT - Trinidad and Tobago</option>
+                                    <option id="cbi-wireless-wifi1-country-TW" value="TW">TW - Taiwan</option>
+                                    <option id="cbi-wireless-wifi1-country-UA" value="UA">UA - Ukraine</option>
+                                    <option id="cbi-wireless-wifi1-country-US" value="US">US - United States</option>
+                                    <option id="cbi-wireless-wifi1-country-UY" value="UY">UY - Uruguay</option>
+                                    <option id="cbi-wireless-wifi1-country-UZ" value="UZ">UZ - Uzbekistan</option>
+                                    <option id="cbi-wireless-wifi1-country-VE" value="VE">VE - Venezuela</option>
+                                    <option id="cbi-wireless-wifi1-country-VN" value="VN">VN - Viet Nam</option>
+                                    <option id="cbi-wireless-wifi1-country-ZA" value="ZA">ZA - South Africa</option>
+                                    <option id="cbi-wireless-wifi1-country-ZW" value="ZW">ZW - Zimbabwe</option>
+                                </select>
+    
+                            </div>
+                        </div>
+                        <div class="cbi-value" id="cbi-wireless-wifi1-htmode"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi1.htmode_label">Channel Width</label>
+                            <div class="cbi-value-field">
+    
+    
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.htmode" name="cbid.wireless.wifi1.htmode" size="1">
+                                    <option id="cbi-wireless-wifi1-htmode-HT20" value="HT20" selected="selected">20MHz
+                                    </option>
+                                    <option id="cbi-wireless-wifi1-htmode-HT40" value="HT40">40MHz</option>
+                                    <option id="cbi-wireless-wifi1-htmode-HT80" value="HT80">80MHz</option>
+                                </select>
+    
+                            </div>
+                        </div>
+                        <div class="cbi-value" id="cbi-wireless-wifi1-dfsEnabled"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi1.dfsEnabled_label">DFS</label>
+                            <div class="cbi-value-field">
+    
+    
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.dfsEnabled" name="cbid.wireless.wifi1.dfsEnabled" size="1">
+                                    <option id="cbi-wireless-wifi1-dfsEnabled-1" value="1">Enable</option>
+                                    <option id="cbi-wireless-wifi1-dfsEnabled-2" value="2" selected="selected">Disable
+                                    </option>
+                                </select>
+    
+                            </div>
+                        </div>
+                        <div class="cbi-value" id="cbi-wireless-wifi1-channel20"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi1.channel20_label">Channel</label>
+                            <div class="cbi-value-field">
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.channel20" name="cbid.wireless.wifi1.channel20" size="1">
+                                    <option id="cbi-wireless-wifi1-channel20-auto" value="auto">Auto</option>
+                                    <option id="cbi-wireless-wifi1-channel20-32" value="32">32 (5.160 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-33" value="33">33 (5.165 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-34" value="34">34 (5.170 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-35" value="35">35 (5.175 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-36" value="36">36 (5.180 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-37" value="37">37 (5.185 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-38" value="38">38 (5.190 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-39" value="39">39 (5.195 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-40" value="40">40 (5.200 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-41" value="41">41 (5.205 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-42" value="42">42 (5.210 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-43" value="43">43 (5.215 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-44" value="44">44 (5.220 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-45" value="45">45 (5.225 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-46" value="46">46 (5.230 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-47" value="47">47 (5.235 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-48" value="48">48 (5.240 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-49" value="49">49 (5.245 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-50" value="50">50 (5.250 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-51" value="51">51 (5.255 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-52" value="52">52 (5.260 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-53" value="53">53 (5.265 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-54" value="54">54 (5.270 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-55" value="55">55 (5.275 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-56" value="56">56 (5.280 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-57" value="57">57 (5.285 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-58" value="58">58 (5.290 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-59" value="59">59 (5.295 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-60" value="60">60 (5.300 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-61" value="61">61 (5.305 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-62" value="62">62 (5.310 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-63" value="63">63 (5.315 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-64" value="64">64 (5.320 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-65" value="65">65 (5.325 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-66" value="66">66 (5.330 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-67" value="67">67 (5.335 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-68" value="68">68 (5.340 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-69" value="69">69 (5.345 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-70" value="70">70 (5.350 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-71" value="71">71 (5.355 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-72" value="72">72 (5.360 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-73" value="73">73 (5.365 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-74" value="74">74 (5.370 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-75" value="75">75 (5.375 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-76" value="76">76 (5.380 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-77" value="77">77 (5.385 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-78" value="78">78 (5.390 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-79" value="79">79 (5.395 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-80" value="80">80 (5.400 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-81" value="81">81 (5.405 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-82" value="82">82 (5.410 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-83" value="83">83 (5.415 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-84" value="84">84 (5.420 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-85" value="85">85 (5.425 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-86" value="86">86 (5.430 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-87" value="87">87 (5.435 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-88" value="88">88 (5.440 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-89" value="89">89 (5.445 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-90" value="90">90 (5.450 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-91" value="91">91 (5.455 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-92" value="92">92 (5.460 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-93" value="93">93 (5.465 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-94" value="94">94 (5.470 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-95" value="95">95 (5.475 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-96" value="96">96 (5.480 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-97" value="97">97 (5.485 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-98" value="98">98 (5.490 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-99" value="99">99 (5.495 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-100" value="100">100 (5.500 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-101" value="101">101 (5.505 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-102" value="102">102 (5.510 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-103" value="103">103 (5.515 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-104" value="104">104 (5.520 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-105" value="105">105 (5.525 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-106" value="106">106 (5.530 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-107" value="107">107 (5.535 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-108" value="108">108 (5.540 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-109" value="109">109 (5.545 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-110" value="110">110 (5.550 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-111" value="111">111 (5.555 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-112" value="112">112 (5.560 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-113" value="113">113 (5.565 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-114" value="114">114 (5.570 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-115" value="115">115 (5.575 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-116" value="116">116 (5.580 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-117" value="117">117 (5.585 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-118" value="118">118 (5.590 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-119" value="119">119 (5.595 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-120" value="120">120 (5.600 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-121" value="121">121 (5.605 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-122" value="122">122 (5.610 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-123" value="123">123 (5.615 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-124" value="124">124 (5.620 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-125" value="125">125 (5.625 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-126" value="126">126 (5.630 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-127" value="127">127 (5.635 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-128" value="128">128 (5.640 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-129" value="129">129 (5.645 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-130" value="130">130 (5.650 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-131" value="131">131 (5.655 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-132" value="132">132 (5.660 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-133" value="133">133 (5.665 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-134" value="134">134 (5.670 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-135" value="135">135 (5.675 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-136" value="136">136 (5.680 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-137" value="137">137 (5.685 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-138" value="138">138 (5.690 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-139" value="139">139 (5.695 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-140" value="140">140 (5.700 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-141" value="141">141 (5.705 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-142" value="142">142 (5.710 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-143" value="143">143 (5.715 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-144" value="144">144 (5.720 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-145" value="145">145 (5.725 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-146" value="146">146 (5.730 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-147" value="147">147 (5.735 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-148" value="148">148 (5.740 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-149" value="149">149 (5.745 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-150" value="150">150 (5.750 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-151" value="151">151 (5.755 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-152" value="152">152 (5.760 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-153" value="153">153 (5.765 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-154" value="154">154 (5.770 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-155" value="155">155 (5.775 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-156" value="156">156 (5.780 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-157" value="157">157 (5.785 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-158" value="158">158 (5.790 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-159" value="159">159 (5.795 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-160" value="160">160 (5.800 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-161" value="161">161 (5.805 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-162" value="162">162 (5.810 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-163" value="163">163 (5.815 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-164" value="164">164 (5.820 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-165" value="165">165 (5.825 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-166" value="166">166 (5.830 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-167" value="167">167 (5.835 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-168" value="168">168 (5.840 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-169" value="169">169 (5.845 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-170" value="170">170 (5.850 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-171" value="171">171 (5.855 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-172" value="172">172 (5.860 GHz)</option>
+                                    <option id="cbi-wireless-wifi1-channel20-173" value="173">173 (5.865 GHz)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cbi-value" id="cbi-wireless-wifi1-txpower"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi1.txpower_label">Tx Power</label>
+                            <div class="cbi-value-field">
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.txpower" name="cbid.wireless.wifi1.txpower" size="1">
+                                    <option id="cbi-wireless-wifi1-txpower-3" value="3">3</option>
+                                    <option id="cbi-wireless-wifi1-txpower-4" value="4">4</option>
+                                    <option id="cbi-wireless-wifi1-txpower-5" value="5">5</option>
+                                    <option id="cbi-wireless-wifi1-txpower-6" value="6">6</option>
+                                    <option id="cbi-wireless-wifi1-txpower-7" value="7">7</option>
+                                    <option id="cbi-wireless-wifi1-txpower-8" value="8">8</option>
+                                    <option id="cbi-wireless-wifi1-txpower-9" value="9">9</option>
+                                    <option id="cbi-wireless-wifi1-txpower-10" value="10">10</option>
+                                    <option id="cbi-wireless-wifi1-txpower-11" value="11">11</option>
+                                    <option id="cbi-wireless-wifi1-txpower-12" value="12">12</option>
+                                    <option id="cbi-wireless-wifi1-txpower-13" value="13">13</option>
+                                    <option id="cbi-wireless-wifi1-txpower-14" value="14" selected="selected">14</option>
+                                    <option id="cbi-wireless-wifi1-txpower-15" value="15">15</option>
+                                    <option id="cbi-wireless-wifi1-txpower-16" value="16">16</option>
+                                    <option id="cbi-wireless-wifi1-txpower-17" value="17">17</option>
+                                    <option id="cbi-wireless-wifi1-txpower-18" value="18">18</option>
+                                    <option id="cbi-wireless-wifi1-txpower-19" value="19">19</option>
+                                    <option id="cbi-wireless-wifi1-txpower-20" value="20">20</option>
+                                    <option id="cbi-wireless-wifi1-txpower-21" value="21">21</option>
+                                    <option id="cbi-wireless-wifi1-txpower-22" value="22">22</option>
+                                    <option id="cbi-wireless-wifi1-txpower-23" value="23">23</option>
+                                    <option id="cbi-wireless-wifi1-txpower-24" value="24">24</option>
+                                    <option id="cbi-wireless-wifi1-txpower-25" value="25">25</option>
+                                    <option id="cbi-wireless-wifi1-txpower-26" value="26">26</option>
+                                    <option id="cbi-wireless-wifi1-txpower-27" value="27">27</option>
+                                </select>
+                                <br>
+                                <div class="cbi-value-description">
+                                    <span class="cbi-value-helpicon"></span>
+                                    Range: 3 - 27dBm, (Default: 27dBm)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cbi-value" id="cbi-wireless-wifi1-acsStatus" style="display: block;"><label
+                                class="cbi-value-title" for="cbid.wireless.wifi1.acsStatus_label">ACS Scheduler</label>
+                            <div class="cbi-value-field">
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.acsStatus" name="cbid.wireless.wifi1.acsStatus" size="1">
+                                    <option id="cbi-wireless-wifi1-acsStatus-2" value="2">Disabled</option>
+                                    <option id="cbi-wireless-wifi1-acsStatus-1" value="1">Enabled</option>
+                                </select>
+    
+                                <br>
+                                <div class="cbi-value-description">
+                                    <span class="cbi-value-helpicon"></span>
+                                    Enable or Disable ACS Scheduler
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cbi-value cbi-value-last" id="cbi-wireless-wifi1-dcsEnabled"><label
+                                class="cbi-value-title" for="cbid.wireless.wifi1.dcsEnabled_label">DCS Scheduler</label>
+                            <div class="cbi-value-field">
+    
+    
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi1.dcsEnabled" name="cbid.wireless.wifi1.dcsEnabled" size="1">
+                                    <option id="cbi-wireless-wifi1-dcsEnabled-2" value="2" selected="selected">Disabled
+                                    </option>
+                                    <option id="cbi-wireless-wifi1-dcsEnabled-1" value="1">Enabled</option>
+                                </select>
+    
+                                <br>
+                                <div class="cbi-value-description">
+                                    <span class="cbi-value-helpicon"></span>
+                                    Enable or Disable DCS Scheduler
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+            </div>
+        </fieldset>
+        <!-- /nsection -->
+        <fieldset class="cbi-section" id="cbi-wireless-wifi-device">
+            <div class="cbi-section-descr"></div>
+            <div class="cbi-section-wrap" id="cbi-section-wrap-wifi2">
+                <ul class="cbi-tabmenu">
+                    <!-- <script type="text/javascript">cbi_c['container.wireless.wifi2.general'] = 6;</script> -->
+                    <li id="tab.wireless.wifi2.general" class="cbi-tab">
+                        <a onclick="this.blur(); return cbi_t_switch('wireless.wifi2', 'general')"
+                           >5GHz
+                            Radio 2</a>
+                        <input type="hidden" id="tab.wireless.wifi2" name="tab.wireless.wifi2" value="general">
+                    </li>
+                </ul>
+                <fieldset class="cbi-section-node cbi-section-node-tabbed" id="cbi-wireless-wifi2">
+                    <div class="cbi-tabcontainer" id="container.wireless.wifi2.general">
+    
+                        <div class="cbi-value" id="cbi-wireless-wifi2-htmode"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi2.htmode_label">Channel Width</label>
+                            <div class="cbi-value-field">
+    
+    
+                                <select class="cbi-input-select" onchange="cbi_d_update(this.id)"
+                                    id="cbid.wireless.wifi2.htmode" name="cbid.wireless.wifi2.htmode" size="1">
+                                    <option id="cbi-wireless-wifi2-htmode-HT20" value="HT20" selected="selected">20MHz
+                                    </option>
+                                    <option id="cbi-wireless-wifi2-htmode-HT40" value="HT40">40MHz</option>
+                                    <option id="cbi-wireless-wifi2-htmode-HT80" value="HT80">80MHz</option>
+                                </select>
+    
+                            </div>
+                        </div>
+                        <div class="cbi-value" id="cbi-wireless-wifi2-channel20"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi2.channel20_label">Channel</label>
+                            <div class="cbi-value-field">
+                                <select class="cbi-input-select" 
+                                    id="cbid.wireless.wifi2.channel20" name="cbid.wireless.wifi2.channel20" size="1">
+                                    <option id="cbi-wireless-wifi2-channel20-auto" value="auto" selected="selected">Auto
+                                    </option>
+                                </select>
+    
+                            </div>
+                        </div>
+                        <div class="cbi-value cbi-value-last" id="cbi-wireless-wifi2-txpower"><label class="cbi-value-title"
+                                for="cbid.wireless.wifi2.txpower_label">Tx Power</label>
+                            <div class="cbi-value-field">
+                                <select class="cbi-input-select" 
+                                    id="cbid.wireless.wifi2.txpower" name="cbid.wireless.wifi2.txpower" size="1">
+                                    <option id="cbi-wireless-wifi2-txpower-3" value="3">3</option>
+                                    <option id="cbi-wireless-wifi2-txpower-4" value="4">4</option>
+                                    <option id="cbi-wireless-wifi2-txpower-5" value="5">5</option>
+                                    <option id="cbi-wireless-wifi2-txpower-6" value="6">6</option>
+                                    <option id="cbi-wireless-wifi2-txpower-7" value="7">7</option>
+                                    <option id="cbi-wireless-wifi2-txpower-8" value="8">8</option>
+                                    <option id="cbi-wireless-wifi2-txpower-9" value="9">9</option>
+                                    <option id="cbi-wireless-wifi2-txpower-10" value="10">10</option>
+                                    <option id="cbi-wireless-wifi2-txpower-11" value="11">11</option>
+                                    <option id="cbi-wireless-wifi2-txpower-12" value="12">12</option>
+                                    <option id="cbi-wireless-wifi2-txpower-13" value="13">13</option>
+                                    <option id="cbi-wireless-wifi2-txpower-14" value="14">14</option>
+                                    <option id="cbi-wireless-wifi2-txpower-15" value="15">15</option>
+                                    <option id="cbi-wireless-wifi2-txpower-16" value="16">16</option>
+                                    <option id="cbi-wireless-wifi2-txpower-17" value="17">17</option>
+                                    <option id="cbi-wireless-wifi2-txpower-18" value="18">18</option>
+                                    <option id="cbi-wireless-wifi2-txpower-19" value="19">19</option>
+                                    <option id="cbi-wireless-wifi2-txpower-20" value="20">20</option>
+                                    <option id="cbi-wireless-wifi2-txpower-21" value="21">21</option>
+                                    <option id="cbi-wireless-wifi2-txpower-22" value="22">22</option>
+                                    <option id="cbi-wireless-wifi2-txpower-23" value="23">23</option>
+                                    <option id="cbi-wireless-wifi2-txpower-24" value="24">24</option>
+                                    <option id="cbi-wireless-wifi2-txpower-25" value="25">25</option>
+                                </select>
+                                <br>
+                                <div class="cbi-value-description">
+                                    <span class="cbi-value-helpicon"></span>
+                                    Range: 3 - 25dBm, (Default: 25dBm)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br>
+            </div>
+        </fieldset>
+        <br>
+    </div>
+    <button id="click">delete</button>
+    <button id="add">add</button>
+    <script>
+        let htmode = $('#cbi-wireless-wifi1-htmode').clone();
+        let channel = $('#cbi-wireless-wifi1-channel20').clone();
+        let txpower = $('#cbi-wireless-wifi1-txpower').clone()
+        let total = htmode+channel+txpower
+        $("#click").click(function(e){
+            e.stopPropagation();
+            console.log("clecked")
+            $("#cbi-wireless-wifi1").find('#cbi-wireless-wifi1-htmode').remove()
+            $("#cbi-wireless-wifi1").find('#cbi-wireless-wifi1-channel20').remove()
+            $("#cbi-wireless-wifi1").find('#cbi-wireless-wifi1-txpower').remove()
+        });
+        $("#add").click(function(e){
+            $("#cbi-wireless-wifi1-dfsEnabled").after(htmode)
+            $('#cbi-wireless-wifi1-htmode').after(channel)
+            $('#cbi-wireless-wifi1-channel20').after(txpower)
+            // console.log(htmode)
+        });
+    </script>
+</body>
+</html>
