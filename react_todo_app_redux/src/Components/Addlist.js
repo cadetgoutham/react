@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/esm/Button';
+import Form from 'react-bootstrap/esm/Form';
 import { useDispatch } from 'react-redux';
 import {addTaskToList} from '../Slices/ReduxSlice'
 
@@ -33,7 +33,7 @@ function Addlist() {
         }}/>
       </Form.Group>
       <div className='text-end'>
-        <Button variant="primary" type="submit" >
+        <Button variant="dark" type="submit" >
           Add Task
         </Button>
       </div>
@@ -44,3 +44,4 @@ function Addlist() {
 }
 
 export default Addlist
+
