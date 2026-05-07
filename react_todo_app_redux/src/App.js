@@ -1,5 +1,4 @@
 import React from 'react';
-import './index.css';
 import Header from './Components/Header';
 import Addlist from './Components/Addlist';
 import { Container, Row, Col } from 'react-bootstrap';
