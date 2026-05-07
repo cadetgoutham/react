@@ -1,21 +1,23 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import React, { Suspense, lazy } from 'react';
+import './index.css';
 import Navbar from './Components/Navbar';
-import Cart from './Components/Cart';
-import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';;
+
+const Home = lazy(() => import('./Components/Home'));
+const Cart = lazy(() => import('./Components/Cart'));
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-      <Navbar/>
+    <Router>
+      <Navbar />
+      <Suspense fallback={<div className="text-center mt-5">Loading...</div>}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="Cart" element={<Cart />} />
+          <Route path="/Cart" element={<Cart />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </Suspense>
+    </Router>
   );
 }
 
