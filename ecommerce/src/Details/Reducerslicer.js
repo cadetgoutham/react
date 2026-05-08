@@ -3,20 +3,22 @@ import ProductsData from "./products.json";
 
 const initialState = {
     Product: ProductsData.products, 
-    Cart: []
+    Cart: [],
+    searchQuery: "" // Added to track search input
 };
 
 const slicer = createSlice({
     name: "Slices",
     initialState,
     reducers: {
+        setSearchQuery: (state, action) => {
+            state.searchQuery = action.payload; // Updates search state
+        },
         addCart: (state, action) => {
             const product = state.Product.find(p => p._id === action.payload._id);
-            
             if (product && product.Stock > 0) {
                 product.Stock -= 1;
                 const cartItem = state.Cart.find(item => item._id === action.payload._id);
-
                 if (cartItem) {
                     cartItem.Stock += 1;
                 } else {
@@ -24,7 +26,6 @@ const slicer = createSlice({
                 }
             }
         },
-
         RemoveCart: (state, action) => {
             const product = state.Product.find(p => p._id === action.payload._id);
             if (product) {
@@ -32,25 +33,20 @@ const slicer = createSlice({
             }
             state.Cart = state.Cart.filter(item => item._id !== action.payload._id);
         },
-
         increementCart: (state, action) => {
             const product = state.Product.find(p => p._id === action.payload._id);
             const cartItem = state.Cart.find(item => item._id === action.payload._id);
-
             if (product && product.Stock > 0) {
                 product.Stock -= 1;
                 cartItem.Stock += 1;
             }
         },
-
         decreementCart: (state, action) => {
             const product = state.Product.find(p => p._id === action.payload._id);
             const cartItem = state.Cart.find(item => item._id === action.payload._id);
-
             if (cartItem) {
                 cartItem.Stock -= 1;
                 if (product) product.Stock += 1;
-
                 if (cartItem.Stock < 1) {
                     state.Cart = state.Cart.filter(item => item._id !== action.payload._id);
                 }
@@ -60,4 +56,4 @@ const slicer = createSlice({
 });
 
 export default slicer.reducer;
-export const { addCart, RemoveCart, increementCart, decreementCart } = slicer.actions;
+export const { addCart, RemoveCart, increementCart, decreementCart, setSearchQuery } = slicer.actions;
