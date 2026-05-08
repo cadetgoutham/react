@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  font-family: monospace !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.App {
+  text-align: center;
+}
+
+div#Main {
+  padding-top: 5%;
+}
+
+.inputField>* {
+  height: 4vh;
+}
+.inputField> input {
+  width: 70%;
+}
+
+.inputField>button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 344px) {
+  .Heading {
+    padding-top: 15%;
+  }
+
+  .inputField {
+    padding-top: 10%;
+  }
+
+  .inputField>input {
+    width: 70%;
+  }
+
+  .inputField>* {
+    height: 3vh;
+  }
+}
+
+@media (min-width: 344px) and (max-width: 650.98px) {
+  .Heading {
+    padding-top: 15%;
+  }
+
+  .inputField {
+    padding-top: 10%;
+  }
+
+  .inputField>input {
+    width: 70%;
+  }
+
+  .inputField>* {
+    height: 3vh;
+  }
+}
+
+@media (min-width: 650px) and (max-width: 1200.98px) {
+  .Heading {
+    padding-top: 5%;
+  }
+
+  .inputField {
+    padding-top: 5%;
+  }
+
+  .inputField>input {
+    width: 70%;
+  }
+
+  .inputField>* {
+    height: 4vh;
+  }
+}
+
+.card {
+  width: 300px;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: rgb(61, 61, 61);
+  position: relative;
+  box-shadow: 10px 10px 10px 10px rgb(109, 109, 109);
+  border: 1px solid gray;
+}
+
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid black;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+div#Menu {
+  min-height: 70vh;
+}

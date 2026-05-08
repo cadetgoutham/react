@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.Btn-active {
+  background-color: skyblue;
+}
+
+.img {
+  transition: 0.5s ease-in-out;
+}
+
+.shadow {
+  box-shadow: inset 0px -20px 20px 20px #0000008c;
+}
+
+.shadowbackdrop {
+  box-shadow: inset 0px -90px 30px 0px #0000008c;
+}
+
+@media (min-width: 335px) and (max-width: 767px) {
+  .floatRight {
+    float: none;
+  }
+
+  .flex.movie-details {
+    flex-direction: column;
+  }
+
+  .flex.movie-details>div {
+    width: 100%;
+  }
+
+  .floatRight>div.items-center.mt-10 {
+    margin-top: 0;
+  }
+
+  dd.mt-1.text-sm.leading-4.text-blue-700.sm\:col-span-2.sm\:mt-0 {
+    width: 100%;
+  }
+
+  div.px-2.py-2.sm\:grid.sm\:grid-cols-3.sm\:gap-4.sm\:px-0 {
+    display: flex;
+  }
+
+  dt.text-sm.leading-4.text-blue-900.font-semibold {
+    width: 140px !important;
+    max-width: 104px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-translateX {
+    --tw-translate-x: 100% !important;
+  }
+}
+
+@media (max-width: 445px) {
+  .custom-translateX {
+    --tw-translate-x: 100% !important;
+  }
+
+  .card-custom-width>p {
+    font-size: 11px;
+  }
+
+  .card-custom-width>span>img {
+    width: 50% !important;
+    height: 75% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .card-custom-width {
+    width: 99px;
+  }
+}
