@@ -8,6 +8,7 @@ const { rateLimit } = require('express-rate-limit')
 const app = express()
 const port = Number(process.env.PORT || 5001)
 const tmdbApiKey = process.env.TMDB_API_KEY
+console.log(`TMDB API Key: ${tmdbApiKey}`)
 const buildDirectory = path.resolve(__dirname, '../build')
 const indexFile = path.join(buildDirectory, 'index.html')
 const tmdbApiBaseUrl = 'https://api.themoviedb.org/3/'
