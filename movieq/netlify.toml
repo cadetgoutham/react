@@ -1,0 +1,30 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+# Client-side routes of the React app. Scoped to these paths so /api/* still
+# reaches the Netlify Server that proxies TMDB.
+[[redirects]]
+  from = "/genre"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/upcoming"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/trending"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/anime"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/moviedetail/*"
+  to = "/index.html"
+  status = 200
