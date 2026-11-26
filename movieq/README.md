@@ -21,8 +21,10 @@ The React development server proxies `/api/tmdb` requests to Express on port 500
 
 If movies do not load, check that the actual `.env` file (not just `.env.example`) contains `TMDB_API_KEY` and that `npm run server` is running. Restart the React development server after changing its proxy configuration, and restart Express after changing `.env`. Failed requests appear as an error on the movie listing rather than an endless loader.
 
-## Production
+## Production (Netlify)
 
-Set `TMDB_API_KEY` in the hosting provider's server-side environment configuration. Build the React app with `npm run build`, then start the Express server with `npm run server`. The server serves both the built app and the TMDB proxy.
+`netlify.toml` builds the React app (`npm run build`) and publishes the `build` folder. The TMDB proxy runs as a Netlify Server from `netlify/server/index.mjs` on `/api/*`. Set `TMDB_API_KEY` in the Netlify environment variables and redeploy after changing it.
 
-The proxy allows only the TMDB endpoints MovieQ uses and limits each client to 100 requests per 15 minutes. If the host sits behind a reverse proxy, set `TRUST_PROXY_HOPS` to the number of trusted proxy hops reported by that host.
+`server/index.js` is still available for running everything locally without Netlify (`npm run server`). You can also run `netlify dev` to start the app and the Netlify Server together.
+
+The proxy allows only the TMDB endpoints MovieQ uses and limits each client to 100 requests per 15 minutes.
