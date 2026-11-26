@@ -1,11 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import ProductsData from "./products.json";
 
-const initialState = {
-    Product: ProductsData.products, 
-    Cart: [],
-    searchQuery: "" // Added to track search input
+export const CART_KEY = "modernshop-cart";
+
+// Restore a saved cart, keeping only items that still exist and fit in stock
+const loadInitialState = () => {
+    const products = ProductsData.products.map(p => ({ ...p }));
+    let cart = [];
+    try {
+        const saved = JSON.parse(localStorage.getItem(CART_KEY));
+        if (Array.isArray(saved)) {
+            saved.forEach(entry => {
+                const product = products.find(p => p._id === entry?._id);
+                const qty = Math.min(Math.floor(Number(entry?.Stock)), product ? product.Stock : 0);
+                if (product && qty > 0) {
+                    product.Stock -= qty;
+                    cart.push({ ...product, Stock: qty });
+                }
+            });
+        }
+    } catch {
+        cart = [];
+    }
+    return { Product: products, Cart: cart, searchQuery: "" };
 };
+
+const initialState = loadInitialState();
 
 const slicer = createSlice({
     name: "Slices",
@@ -25,6 +45,13 @@ const slicer = createSlice({
                     state.Cart.push({ ...action.payload, Stock: 1 });
                 }
             }
+        },
+        clearCart: (state) => {
+            state.Cart.forEach(item => {
+                const product = state.Product.find(p => p._id === item._id);
+                if (product) product.Stock += item.Stock;
+            });
+            state.Cart = [];
         },
         RemoveCart: (state, action) => {
             const product = state.Product.find(p => p._id === action.payload._id);
@@ -56,4 +83,4 @@ const slicer = createSlice({
 });
 
 export default slicer.reducer;
-export const { addCart, RemoveCart, increementCart, decreementCart, setSearchQuery } = slicer.actions;
+export const { addCart, RemoveCart, increementCart, decreementCart, setSearchQuery, clearCart } = slicer.actions;
