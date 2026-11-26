@@ -1,8 +1,8 @@
 export async function fetchTmdb(endpoint, parameters = {}, signal) {
-    const apiKey = process.env.REACT_APP_API_KEY?.trim()
+    const apiKey = process.env.REACT_APP_TMDB_API_KEY?.trim()
     console.log('API Key:', apiKey)
     if (!apiKey) {
-        throw new Error('REACT_APP_API_KEY is missing. Set it in your environment and restart the app or rebuild.')
+        throw new Error('REACT_APP_TMDB_API_KEY is missing. Set it in your environment and restart the app or rebuild.')
     }
 
     const query = new URLSearchParams(parameters)
