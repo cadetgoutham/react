@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AddEducation } from '../Slice/ReduxSlicer';
 import { FiPlus, FiTrash2, FiCheckCircle} from 'react-icons/fi';
 
 export default function Educations() {
   const dispatch = useDispatch();
-  const [education, setEducation] = useState([]);
+  const savedEducation = useSelector((state) => state.Details.myList.EducationDetail);
+  const [education, setEducation] = useState(() =>
+    savedEducation.map((edu) => ({ CGPA: '', CGPAScale: '10', ...edu }))
+  );
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const MAX_ENTRIES = 3;
 
   const handleEducation = (index, field, value) => {
@@ -17,7 +21,7 @@ export default function Educations() {
 
   const addEducationField = () => {
     if (education.length < MAX_ENTRIES) {
-      setEducation([...education, { CollegeName: '', PassedYear: '', Degree: '' }]);
+      setEducation([...education, { CollegeName: '', PassedYear: '', Degree: '', CGPA: '', CGPAScale: '10' }]);
     }
   };
 
@@ -27,16 +31,25 @@ export default function Educations() {
 
   const handleSubmit = () => {
     if (education.length === 0) {
-      alert('Please add at least one education entry');
+      setError('Please add at least one education entry.');
       return;
     }
-    if (education.some(edu => !edu.CollegeName || !edu.PassedYear || !edu.Degree)) {
-      alert('Please fill all fields');
+    if (education.some(edu => !edu.CollegeName.trim() || !edu.PassedYear.trim() || !edu.Degree.trim())) {
+      setError('College, year and degree are required for every entry.');
       return;
     }
-    dispatch(AddEducation(education));
+    const badCgpa = education.some(edu => {
+      if (edu.CGPA === '') return false;
+      const v = Number(edu.CGPA);
+      return Number.isNaN(v) || v < 0 || v > Number(edu.CGPAScale);
+    });
+    if (badCgpa) {
+      setError('CGPA must be a number between 0 and the selected scale.');
+      return;
+    }
+    setError('');
+    dispatch(AddEducation(education.map(edu => Object.fromEntries(Object.entries(edu).map(([k, v]) => [k, v.trim()])))));
     setSubmitted(true);
-    setEducation([]);
     setTimeout(() => setSubmitted(false), 3000);
   };
 
@@ -127,9 +140,41 @@ export default function Educations() {
                         className="form-input"
                       />
                     </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="form-label">CGPA <span className="text-gray-400 text-sm font-normal">(optional)</span></label>
+                        <input
+                          type="number"
+                          min="0"
+                          max={edu.CGPAScale}
+                          step="0.01"
+                          value={edu.CGPA || ''}
+                          onChange={(e) => handleEducation(index, 'CGPA', e.target.value)}
+                          placeholder="e.g., 8.5"
+                          className="form-input"
+                        />
+                      </div>
+                      <div>
+                        <label className="form-label">Scale</label>
+                        <select
+                          value={edu.CGPAScale || '10'}
+                          onChange={(e) => handleEducation(index, 'CGPAScale', e.target.value)}
+                          className="form-input"
+                        >
+                          <option value="10">out of 10</option>
+                          <option value="5">out of 5</option>
+                          <option value="4">out of 4</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
+            )}
+
+            {error && (
+              <p role="alert" className="mt-6 text-red-600 text-sm font-medium">{error}</p>
             )}
 
             {/* Action Buttons */}

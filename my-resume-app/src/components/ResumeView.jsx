@@ -1,9 +1,28 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FiPrinter, FiDownload, FiMail, FiPhone, FiMapPin, FiBriefcase, FiBook, FiZap } from 'react-icons/fi';
+import { exportResumePdf } from '../utils/exportPdf';
+import { FiPrinter, FiDownload, FiFileText, FiLink, FiMail, FiPhone, FiMapPin, FiBriefcase, FiBook, FiZap } from 'react-icons/fi';
 
 export default function ResumeView() {
   const { myList } = useSelector((state) => state.Details);
   const { personalDetails, ExperienceDetails, EducationDetail, SkillDetails } = myList;
+
+  const [pdfError, setPdfError] = useState('');
+  const [exporting, setExporting] = useState(false);
+  const hasData = personalDetails.length > 0 || ExperienceDetails.length > 0 || EducationDetail.length > 0 || SkillDetails.length > 0;
+
+  const handlePdf = async () => {
+    setPdfError('');
+    setExporting(true);
+    try {
+      await exportResumePdf(myList);
+    } catch (err) {
+      console.error(err);
+      setPdfError('Could not generate the PDF. Please try again or use Print.');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   const handlePrint = () => {
     window.print();
@@ -33,6 +52,14 @@ export default function ResumeView() {
             Print Resume
           </button>
           <button
+            onClick={handlePdf}
+            disabled={!hasData || exporting}
+            className="btn-primary flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <FiFileText size={20} />
+            {exporting ? 'Generating…' : 'Export PDF'}
+          </button>
+          <button
             onClick={handleDownload}
             className="btn-secondary flex items-center justify-center gap-2"
           >
@@ -41,6 +68,8 @@ export default function ResumeView() {
           </button>
         </div>
 
+        {pdfError && <p role="alert" className="mb-4 text-red-600 text-sm font-medium print:hidden">{pdfError}</p>}
+
         {/* Resume Document */}
         <div id="resume-content" className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           {/* Personal Details Section */}
@@ -48,7 +77,8 @@ export default function ResumeView() {
             personalDetails.map((data, index) => (
               <div key={index} className="bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 md:p-12">
                 <h1 className="text-4xl md:text-5xl font-bold mb-2">{data.Name}</h1>
-                <p className="text-primary-100 text-lg mb-6">Professional Profile</p>
+                <p className="text-primary-100 text-lg mb-6">{data.title || 'Professional Profile'}</p>
+                {data.summary && <p className="mb-6 text-white/90 whitespace-pre-line">{data.summary}</p>}
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex items-center gap-3">
@@ -75,6 +105,16 @@ export default function ResumeView() {
                     </div>
                   </div>
                 </div>
+
+                {[data.linkedin, data.github, data.website].some(Boolean) && (
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm">
+                    {[data.linkedin, data.github, data.website].filter(Boolean).map((url) => (
+                      <a key={url} href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 underline">
+                        <FiLink size={14} />{url.replace(/^https?:\/\//, '')}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           ) : (
@@ -100,6 +140,11 @@ export default function ResumeView() {
                         <span className="text-primary-600 font-semibold mt-1 md:mt-0">📅 {data.Year}</span>
                       </div>
                       <p className="text-gray-600 font-medium">{data.CompanyName}</p>
+                      {data.description && (
+                        <ul className="list-disc ml-5 mt-2 text-gray-600 text-sm space-y-1">
+                          {data.description.split('\n').filter((l) => l.trim()).map((l, i) => <li key={i}>{l}</li>)}
+                        </ul>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -126,6 +171,7 @@ export default function ResumeView() {
                         <span className="text-primary-600 font-semibold mt-1 md:mt-0">🎓 {data.PassedYear}</span>
                       </div>
                       <p className="text-gray-600 font-medium">{data.CollegeName}</p>
+                      {data.CGPA && <p className="text-gray-600 text-sm mt-1">CGPA: {data.CGPA} / {data.CGPAScale || 10}</p>}
                     </div>
                   ))}
                 </div>

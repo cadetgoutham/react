@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Languages } from './Languages';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { AddSkills } from '../Slice/ReduxSlicer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FiCheckCircle, FiX, FiZap } from 'react-icons/fi';
 
 const suggestions = Languages.map((language) => ({
@@ -18,7 +18,8 @@ const KeyCodes = {
 const delimiters = [KeyCodes.enter, KeyCodes.comma];
 
 export default function Skills() {
-  const [tags, setTags] = useState([]);
+  const savedSkills = useSelector((state) => state.Details.myList.SkillDetails);
+  const [tags, setTags] = useState(() => savedSkills.map((text) => ({ id: text, text })));
   const dispatch = useDispatch();
   const [submitted, setSubmitted] = useState(false);
   const MAX_SKILLS = 10;
@@ -49,7 +50,6 @@ export default function Skills() {
     }
     dispatch(AddSkills(tags));
     setSubmitted(true);
-    setTags([]);
     setTimeout(() => setSubmitted(false), 3000);
   };
 

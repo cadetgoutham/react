@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ConfirmModal from './ConfirmModal';
 import { clearAll } from '../Slice/ReduxSlicer';
 import { 
   FiHome, 
@@ -16,14 +17,16 @@ import {
 export default function Header() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [confirmOpen, setConfirmOpen] = React.useState(false);
 
   const handleClearAll = () => {
-    if (window.confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
-      dispatch(clearAll());
-      alert('All data has been cleared!');
-    }
+    dispatch(clearAll());
+    setConfirmOpen(false);
+    navigate('/');
   };
+  const closeConfirm = React.useCallback(() => setConfirmOpen(false), []);
 
   const navItems = [
     { path: '/', icon: FiHome, label: 'Personal', title: 'Personal Details' },
@@ -67,7 +70,7 @@ export default function Header() {
               </Link>
             ))}
             <button
-              onClick={handleClearAll}
+              onClick={() => setConfirmOpen(true)}
               title="Clear all data"
               className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white hover:bg-red-500 transition-all duration-200 ml-2"
             >
@@ -107,7 +110,7 @@ export default function Header() {
               ))}
               <button
                 onClick={() => {
-                  handleClearAll();
+                  setConfirmOpen(true);
                   setIsOpen(false);
                 }}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-white hover:bg-red-500 transition-all duration-200"
@@ -119,6 +122,14 @@ export default function Header() {
           </nav>
         )}
       </div>
+      <ConfirmModal
+        open={confirmOpen}
+        title="Clear all data?"
+        message="This will permanently remove your personal details, education, experience and skills. This action cannot be undone."
+        confirmLabel="Yes, clear all"
+        onConfirm={handleClearAll}
+        onCancel={closeConfirm}
+      />
     </header>
   );
 }

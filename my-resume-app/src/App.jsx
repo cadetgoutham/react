@@ -1,24 +1,21 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPersonal } from './Slice/ReduxSlicer';
-import { FiUser, FiMail, FiMapPin, FiPhone, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { FiUser, FiMail, FiMapPin, FiPhone, FiBriefcase, FiLink, FiGithub, FiLinkedin, FiFileText, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 
 // FormField component moved outside of App to prevent recreation on each render
-const FormField = ({ icon: Icon, label, name, type = 'text', placeholder, error, value, onChange }) => (
+const FormField = ({ icon: Icon, label, name, type = 'text', placeholder, error, value, onChange, multiline = false, optional = false }) => (
   <div className="space-y-2">
     <label htmlFor={name} className="form-label flex items-center gap-2">
       <Icon size={18} className="text-primary-600" />
-      {label}
+      {label}{optional && <span className="text-gray-400 text-sm font-normal">(optional)</span>}
     </label>
-    <input
-      type={type}
-      id={name}
-      name={name}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={`form-input ${error ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : ''}`}
-    />
+    {React.createElement(multiline ? 'textarea' : 'input', {
+      ...(multiline ? { rows: 4, maxLength: 500 } : { type }),
+      id: name, name, value, onChange, placeholder,
+      'aria-invalid': !!error,
+      className: `form-input ${error ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : ''}`,
+    })}
     {error && (
       <div className="flex items-center gap-1 text-red-500 text-sm">
         <FiAlertCircle size={16} />
@@ -28,13 +25,15 @@ const FormField = ({ icon: Icon, label, name, type = 'text', placeholder, error,
   </div>
 );
 
+const emptyForm = { Name: '', email: '', addr: '', phone: '', title: '', summary: '', linkedin: '', github: '', website: '' };
+const isUrl = (v) => { try { return ['http:', 'https:'].includes(new URL(v).protocol); } catch { return false; } };
+
 function App() {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    Name: '',
-    email: '',
-    addr: '',
-    phone: ''
+  const saved = useSelector((state) => state.Details.myList.personalDetails[0]);
+  const [formData, setFormData] = useState(() => {
+    const { id, ...rest } = saved || {}; // eslint-disable-line no-unused-vars
+    return { ...emptyForm, ...rest };
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -62,6 +61,12 @@ function App() {
       newErrors.phone = 'Phone number must be 10 digits';
     }
 
+    ['linkedin', 'github', 'website'].forEach((k) => {
+      if (formData[k].trim() && !isUrl(formData[k].trim())) {
+        newErrors[k] = 'Enter a full URL starting with http:// or https://';
+      }
+    });
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -83,9 +88,9 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      dispatch(addPersonal(formData));
+      const trimmed = Object.fromEntries(Object.entries(formData).map(([k, v]) => [k, v.trim()]));
+      dispatch(addPersonal(trimmed));
       setSubmitted(true);
-      setFormData({ Name: '', email: '', addr: '', phone: '' });
       setTimeout(() => setSubmitted(false), 3000);
     }
   };
@@ -111,7 +116,7 @@ function App() {
             <p className="text-primary-100 mt-2">Let's start with your basic details</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          <form onSubmit={handleSubmit} noValidate className="p-8 space-y-6">
             {/* Name Field */}
             <FormField
               icon={FiUser}
@@ -157,6 +162,12 @@ function App() {
               onChange={handleChange}
               error={errors.phone}
             />
+
+            <FormField icon={FiBriefcase} label="Professional Title" name="title" placeholder="Frontend Developer" optional value={formData.title} onChange={handleChange} error={errors.title} />
+            <FormField icon={FiFileText} label="Summary" name="summary" placeholder="A short professional summary" multiline optional value={formData.summary} onChange={handleChange} error={errors.summary} />
+            <FormField icon={FiLinkedin} label="LinkedIn" name="linkedin" type="url" placeholder="https://linkedin.com/in/you" optional value={formData.linkedin} onChange={handleChange} error={errors.linkedin} />
+            <FormField icon={FiGithub} label="GitHub" name="github" type="url" placeholder="https://github.com/you" optional value={formData.github} onChange={handleChange} error={errors.github} />
+            <FormField icon={FiLink} label="Website / Portfolio" name="website" type="url" placeholder="https://yoursite.com" optional value={formData.website} onChange={handleChange} error={errors.website} />
 
             {/* Submit Button */}
             <button

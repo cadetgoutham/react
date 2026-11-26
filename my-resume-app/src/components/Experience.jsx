@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AddExperience } from '../Slice/ReduxSlicer';
 import { FiPlus, FiTrash2, FiCheckCircle, FiBriefcase } from 'react-icons/fi';
 
 export default function Experiences() {
   const dispatch = useDispatch();
-  const [experience, setExperience] = useState([]);
+  const savedExperience = useSelector((state) => state.Details.myList.ExperienceDetails);
+  const [experience, setExperience] = useState(() =>
+    savedExperience.map((exp) => ({ description: '', ...exp }))
+  );
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const MAX_ENTRIES = 3;
 
   const handleExperience = (index, field, value) => {
@@ -17,7 +21,7 @@ export default function Experiences() {
 
   const addExperienceField = () => {
     if (experience.length < MAX_ENTRIES) {
-      setExperience([...experience, { CompanyName: '', Year: '', designation: '' }]);
+      setExperience([...experience, { CompanyName: '', Year: '', designation: '', description: '' }]);
     }
   };
 
@@ -27,16 +31,16 @@ export default function Experiences() {
 
   const handleSubmit = () => {
     if (experience.length === 0) {
-      alert('Please add at least one experience entry');
+      setError('Please add at least one experience entry.');
       return;
     }
-    if (experience.some(exp => !exp.CompanyName || !exp.Year || !exp.designation)) {
-      alert('Please fill all fields');
+    if (experience.some(exp => !exp.CompanyName.trim() || !exp.Year.trim() || !exp.designation.trim())) {
+      setError('Company, duration and designation are required for every entry.');
       return;
     }
-    dispatch(AddExperience(experience));
+    setError('');
+    dispatch(AddExperience(experience.map(exp => Object.fromEntries(Object.entries(exp).map(([k, v]) => [k, v.trim()])))));
     setSubmitted(true);
-    setExperience([]);
     setTimeout(() => setSubmitted(false), 3000);
   };
 
@@ -127,9 +131,25 @@ export default function Experiences() {
                         className="form-input"
                       />
                     </div>
+
+                    <div className="mt-4">
+                      <label className="form-label">Key responsibilities / achievements <span className="text-gray-400 text-sm font-normal">(optional)</span></label>
+                      <textarea
+                        rows={3}
+                        maxLength={600}
+                        value={exp.description || ''}
+                        onChange={(e) => handleExperience(index, 'description', e.target.value)}
+                        placeholder="One point per line"
+                        className="form-input"
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
+            )}
+
+            {error && (
+              <p role="alert" className="mt-6 text-red-600 text-sm font-medium">{error}</p>
             )}
 
             {/* Action Buttons */}

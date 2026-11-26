@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --color-primary-50: var(--color-emerald-50);
   --color-primary-100: var(--color-emerald-100);
   --color-primary-200: var(--color-emerald-200);
@@ -124,4 +125,58 @@
 /* Selection color */
 ::selection {
   @apply bg-primary-200 text-primary-900;
+}
+/* ---- Gradient / graphical theme (unlayered so it overrides utilities) ---- */
+:root {
+  --grad-main: linear-gradient(135deg, #10b981 0%, #059669 50%, #14b8a6 100%);
+  --grad-hero: linear-gradient(135deg, #022c22 0%, #047857 45%, #10b981 80%, #2dd4bf 100%);
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.15), transparent 40%),
+    radial-gradient(circle at 90% 10%, rgba(45, 212, 191, 0.14), transparent 40%),
+    radial-gradient(circle at 70% 90%, rgba(34, 197, 94, 0.14), transparent 45%),
+    #f0fdf8;
+  background-attachment: fixed;
+}
+
+/* Let the body gradient show through page wrappers */
+.min-h-screen { background-image: none !important; background-color: transparent !important; }
+
+header.sticky {
+  background: var(--grad-hero) !important;
+  background-size: 200% 200% !important;
+  animation: heroShift 14s ease infinite;
+  border-bottom: 0 !important;
+  box-shadow: 0 8px 30px rgba(5, 150, 105, 0.35);
+}
+
+.btn-primary, .card-header {
+  background-image: var(--grad-main) !important;
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+  transition: background-position 0.4s, transform 0.15s, box-shadow 0.2s;
+}
+.btn-primary:hover { background-position: 100% 50%; box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45); }
+
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px -8px rgba(5, 150, 105, 0.25);
+}
+
+#resume-content > div:first-child:not(.bg-yellow-50) {
+  background-image: var(--grad-hero) !important;
+}
+
+@keyframes heroShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  header.sticky { animation: none; }
+}
+
+@media print {
+  body { background: #fff; }
 }

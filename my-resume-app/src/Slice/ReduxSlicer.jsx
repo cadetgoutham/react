@@ -6,7 +6,8 @@ const initialState = {
         ExperienceDetails: [],
         EducationDetail: [],
         SkillDetails: []
-    }
+    },
+    clearCount: 0
 };
 
 const Slice = createSlice({
@@ -29,6 +30,7 @@ const Slice = createSlice({
             state.myList.SkillDetails = action.payload.map(skill => skill.text);
         },
         clearAll: (state) => {
+            state.clearCount = (state.clearCount || 0) + 1;
             state.myList = {
                 personalDetails: [],
                 ExperienceDetails: [],
