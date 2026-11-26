@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
-import API_KEY from '../Components/ApiKey'
 import Pagination from '../Components/Pagination'
 import MovieCard from '../Components/MovieCard'
 import { UserContext } from '../App'
+import { fetchMovieList } from '../tmdb'
 
 export default function Home() {
   const { movieList, setMovieList, loading, setLoading, setError, error, totalPages, setTotalPages, page, setPage } = useContext(UserContext)
@@ -15,11 +15,12 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setLoading(true)
+    setError(null)
     const getData = async () => {
-      const url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&with_origin_country=IN&page=${page}`
+      const url = `/api/tmdb/trending/movie/day?with_origin_country=IN&page=${page}`
       try {
-        const response = await fetch(url);
-        const result = await response.json();
+        const result = await fetchMovieList(url);
         setMovieList(result.results);
         setTotalPages(result.total_pages)
         setLoading(false);
@@ -34,8 +35,12 @@ export default function Home() {
   }, [page])
 
   return (
-    <>
-      <div className='md:w-[80%] float-right bg-slate-200 h-full'>
+      <main className="page-content">
+        <header className="page-heading">
+          <p className="page-heading__eyebrow">Your daily dose of cinema</p>
+          <h1>Trending now</h1>
+          <p>Fresh picks and audience favorites, all in one place.</p>
+        </header>
         <MovieCard genreList={movieList} loading={loading} error={error} />
         {movieList.length > 0 ? <Pagination
           totalPages={totalPages}
@@ -44,7 +49,6 @@ export default function Home() {
         /> :
           <></>
         }
-      </div>
-    </>
+      </main>
   )
 }

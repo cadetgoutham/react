@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
-import API_KEY from '../Components/ApiKey'
 import Pagination from '../Components/Pagination'
 import MovieCard from '../Components/MovieCard'
 import { UserContext } from '../App'
+import { fetchMovieList } from '../tmdb'
 
 
 export default function Upcoming() {
@@ -16,11 +16,12 @@ export default function Upcoming() {
     };
 
     useEffect(() => {
+        setLoading(true)
+        setError(null)
         const getData = async () => {
-            const url = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&with_origin_country=IN&language=en-US&page=${page}`
+            const url = `/api/tmdb/movie/upcoming?with_origin_country=IN&language=en-US&page=${page}`
             try {
-                const response = await fetch(url);
-                const result = await response.json();
+                const result = await fetchMovieList(url);
                 setMovieList(result.results);
                 setTotalPages(result.total_pages)
                 setLoading(false);
@@ -34,8 +35,12 @@ export default function Upcoming() {
     }, [page])
 
     return (
-        <>
-            <div className='md:w-[80%] float-right bg-slate-200 h-full'>
+            <main className="page-content">
+                <header className="page-heading">
+                    <p className="page-heading__eyebrow">Coming soon to your screen</p>
+                    <h1>Upcoming movies</h1>
+                    <p>Get a first look at the stories arriving soon.</p>
+                </header>
                 <MovieCard genreList={movieList} loading={loading} error={error} />
                 {movieList.length > 0 ? <Pagination
                     totalPages={totalPages}
@@ -44,7 +49,6 @@ export default function Upcoming() {
                 /> :
                     <></>
                 }
-            </div>
-        </>
+            </main>
     )
 }

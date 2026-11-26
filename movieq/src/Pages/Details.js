@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-import API_KEY from '../Components/ApiKey'
 import image from '../images/Brown Mystery Movie Poster .png'
 import men from '../images/men.jpeg'
 import women from '../images/women.png'
@@ -24,7 +23,7 @@ export default function Details() {
     useEffect(() => {
         const fetchMovie = async () => {
             const data = await fetch(
-                `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
+                `/api/tmdb/movie/${id}?language=en-US`
             );
             const moviedetail = await data.json();
             setMoviedetails(moviedetail);
@@ -34,7 +33,7 @@ export default function Details() {
 
         const fetchCast = async () => {
             const castdata = await fetch(
-                `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${API_KEY}&language`
+                `/api/tmdb/movie/${id}/credits?language=en-US`
             );
             const castdetail = await castdata.json();
             setCastDetails(castdetail);
@@ -43,7 +42,7 @@ export default function Details() {
 
         const fetchVideo = async () => {
             const data = await fetch(
-                `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
+                `/api/tmdb/movie/${id}/videos?language=en-US`
             );
             const videodata = await data.json();
             setVideo(videodata.results);
@@ -58,9 +57,9 @@ export default function Details() {
         <>
             {
                 loading ?
-                    <div><Loader /></div>
+                    <div className="loading-state"><Loader /></div>
                     :
-                    <div className='md:w-[80%] float-right bg-slate-200 h-full floatRight'>
+                    <main className="page-content movie-details-page">
                         <button onClick={() => navigate(-1)} className='fixed z-10 text-4xl text-black bg-white m-3 md:m-5 rounded-full'><HiChevronLeft /></button>
                         <div className='flex movie-details'>
                             <div className='w-3/6 h-64'>
@@ -116,7 +115,7 @@ export default function Details() {
                         relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                                 {castDetails?.cast?.map((cast) => (
                                     <>
-                                        <div className='flex min-w-[6rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1 card-custom-width'>
+                                        <div className='cast-card flex min-w-[6rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1 card-custom-width'>
                                             {cast.profile_path !== null ? <>
 
                                                 <LazyLoadImage effect='blur' src={"https://image.tmdb.org/t/p/w500" + cast.profile_path} className="w-full h-full rounded-xl" />
@@ -149,7 +148,7 @@ export default function Details() {
                         relative scrollbar-thin scrollbar-thumb-gray-500/20 scrollbar-track-gray-900/90 md:pb-3">
                                 {castDetails?.crew?.map((cast) => (
                                     <>
-                                        <div className='flex min-w-[6rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1 card-custom-width'>
+                                        <div className='cast-card flex min-w-[6rem] md:min-w-[10rem] max-w-[9rem] md:max-w-[10rem] h-full items-center text-center flex-col mx-1 card-custom-width'>
                                             {cast.profile_path !== null ? <>
 
                                                 <LazyLoadImage effect='blur' src={"https://image.tmdb.org/t/p/w500" + cast.profile_path} className="w-full h-full rounded-xl" />
@@ -188,7 +187,7 @@ export default function Details() {
                         </div>
 
 
-                    </div>
+                    </main>
             }
         </>
     )

@@ -1,11 +1,10 @@
 import { useEffect, useContext } from 'react'
 import genres from '../genre'
 import Btn from '../Components/Btn'
-// import axios from 'axios';
-import API_KEY from '../Components/ApiKey'
 import Pagination from '../Components/Pagination'
 import MovieCard from '../Components/MovieCard'
 import { UserContext } from '../App'
+import { fetchMovieList } from '../tmdb'
 
 
 export default function Genre() {
@@ -20,11 +19,12 @@ export default function Genre() {
 
 
   useEffect(() => {
+    setLoading(true)
+    setError(null)
     const getData = async () => {
-      const url = `https://api.themoviedb.org/3/discover/movie?with_genres=${moviegenre}&api_key=${API_KEY}&with_origin_country=IN&page=${page}`
+      const url = `/api/tmdb/discover/movie?with_genres=${moviegenre}&with_origin_country=IN&page=${page}`
       try {
-        const response = await fetch(url);
-        const result = await response.json();
+        const result = await fetchMovieList(url);
         setMovieList(result.results);
         setTotalPages(result.total_pages)
         setLoading(false);
@@ -39,9 +39,13 @@ export default function Genre() {
   }, [moviegenre, page])
 
   return (
-    <>
-      <div className='md:w-[80%] float-right bg-slate-200 h-full'>
-        <div className='btnpanel flex justify-center items-center flex-wrap px-2'>
+      <main className="page-content">
+        <header className="page-heading">
+          <p className="page-heading__eyebrow">Pick a mood, find a movie</p>
+          <h1>Browse by genre</h1>
+          <p>Explore the stories you love, or find something completely different.</p>
+        </header>
+        <div className="genre-panel">
           {
             genres ? genres.map((data, index) => {
               return (
@@ -58,7 +62,6 @@ export default function Genre() {
         /> :
           <></>
         }
-      </div>
-    </>
+      </main>
   )
 }

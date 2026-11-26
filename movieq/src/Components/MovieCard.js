@@ -1,47 +1,60 @@
 import React from 'react'
 import image from '../images/Brown Mystery Movie Poster .png'
 import { Link } from 'react-router-dom'
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import Loader from './Loader';
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css'
+import Loader from './Loader'
 
-export default function MovieCard({ genreList, loading }) {
+export default function MovieCard({ genreList, loading, error }) {
+    if (error && !loading) {
+        return (
+            <div className="movie-error" role="alert">
+                <h2>Unable to load movies</h2>
+                <p>{error.message}</p>
+            </div>
+        )
+    }
+
+    if (loading || !genreList?.length) {
+        return <div className="loading-state"><Loader /></div>
+    }
+
     return (
-        <>
-            {
-                loading ?
-                    <div><Loader /></div>
-                    :
-                    <div className="flex flex-wrap relative justify-evenly md:justify-around h-full" data-projection-id="21" style={{ transform: 'none', transformOrigin: '50% 50% 0p' }}>
-                        <div className="infinite-scroll-component__outerdiv">
-                            <div className="infinite-scroll-component w-full md:p-2 flex flex-wrap gap-x-1 relative justify-evenly md:justify-around" style={{ height: 'auto', overflow: 'hidden' }}>
-                                {genreList.length > 0 ?
-                                    genreList.map((data, index) => {
-                                        return (
-                                            <div className="card relative w-full md:w-72 h-[410px] md:h-[400px] my-3 mx-4 md:my-5 md:mx-0 cursor-pointer rounded-xl overflow-hidden" data-projection-id="42" style={{ opacity: '1', transform: 'none', transformOrigin: '50% 50% 0px', maxWidth: '288px' }} key={index}>
-                                                <div className="absolute bottom-0 w-full flex justify-between items-end p-3 z-20">
-                                                    <h1 className="text-white text-xl font-semibold  break-normal break-words">{data.title}</h1>
-                                                    <h1 className="font-bold text-orange-400 p-2 bg-zinc-900 rounded-full">{Math.floor(+data.vote_average * 10) / 10}</h1>
-                                                </div>
-                                                <Link to={`/moviedetail/${data.id}`} className='h-full w-full shadow absolute z-10'></Link>
-                                                <div>
-                                                    {
-                                                        data.poster_path !== null ? 
-                                                            <LazyLoadImage effect='blur' className='img object-cover' src={"https://image.tmdb.org/t/p/w500" + data.poster_path} />
-                                                            :
-                                                            <img className='img object-cover' src={image} alt='' /> 
-                                                    }
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                    :
-                                    <><Loader /></>
-                                }
-                            </div>
-                        </div>
-                    </div>
-            }
-        </>
+        <div className="movie-grid">
+            {genreList.map((movie) => {
+                const title = movie.title || movie.name || 'Untitled movie'
+                const score = Number(movie.vote_average)
+                const year = movie.release_date?.slice(0, 4)
+
+                return (
+                    <article className="movie-card" key={movie.id}>
+                        {movie.poster_path ? (
+                            <LazyLoadImage
+                                effect="blur"
+                                className="movie-poster-image"
+                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                alt={`${title} movie poster`}
+                            />
+                        ) : (
+                            <img className="movie-poster-image" src={image} alt="Movie poster unavailable" />
+                        )}
+                        <Link to={`/moviedetail/${movie.id}`} className="movie-card__link" aria-label={`View ${title}`}>
+                            <span className="movie-card__shade" aria-hidden="true" />
+                            <span className="movie-card__info">
+                                <span>
+                                    <span className="movie-card__title">{title}</span>
+                                    {year && <span className="movie-card__year">{year}</span>}
+                                </span>
+                                {Number.isFinite(score) && score > 0 && (
+                                    <span className="movie-card__score" aria-label={`Rating ${score.toFixed(1)} out of 10`}>
+                                        ★ {score.toFixed(1)}
+                                    </span>
+                                )}
+                            </span>
+                        </Link>
+                    </article>
+                )
+            })}
+        </div>
     )
 }
