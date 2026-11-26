@@ -253,25 +253,6 @@ input:focus-visible {
   line-height: 1.6;
 }
 
-.movie-error {
-  padding: 24px;
-  border: 1px solid rgba(213, 150, 153, 0.35);
-  border-radius: 14px;
-  background: var(--accent-wash);
-  color: var(--accent-light);
-}
-
-.movie-error h2 {
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 650;
-}
-
-.movie-error p {
-  margin: 0;
-  line-height: 1.6;
-}
-
 .movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -318,17 +299,6 @@ input:focus-visible {
 
 .movie-card:hover .movie-poster-image {
   transform: scale(1.045);
-}
-
-.movie-card__placeholder {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  place-items: center;
-  padding: 20px;
-  color: #a6a2b5;
-  font-size: 13px;
-  text-align: center;
 }
 
 .movie-card__shade {
@@ -511,30 +481,80 @@ input:focus-visible {
   padding: 22px;
 }
 
-.movie-details-page .text-blue-900,
-.movie-details-page .text-blue-700,
-.movie-details-page .text-gray-700,
-.movie-details-page .text-black {
-  color: #e4e2eb;
+.request-error,
+.empty-state {
+  margin: 0 0 20px;
+  padding: 24px;
+  border: 1px solid #39303a;
+  border-radius: 12px;
+  background: #19161d;
+  color: var(--accent-light);
+  line-height: 1.6;
 }
 
-.movie-details-page .text-blue-300 {
+.detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
   color: var(--accent-light);
 }
 
-.movie-details-page .bg-blue-300 {
-  background-color: var(--accent-strong);
+.detail-facts > div {
+  padding: 12px 0;
+  border-top: 1px solid #30303c;
 }
 
-.movie-details-page .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
-  border-color: #30303c;
+.detail-facts dt {
+  margin-bottom: 6px;
+  color: #92939f;
+  font-size: 12px;
+}
+
+.detail-facts dd {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.people-section {
+  margin-top: 36px;
+}
+
+.people-section h2 {
+  margin-bottom: 16px;
+  color: var(--accent-light);
+  font-size: 24px;
+}
+
+.people-list {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.trailer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.trailer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .movie-details-page .cast-card {
+  flex: 0 0 140px;
   color: #e4e2eb;
+  text-align: center;
 }
 
 .movie-details-page .cast-card img {
+  width: 140px;
   height: 210px;
   object-fit: cover;
 }
@@ -624,6 +644,9 @@ input:focus-visible {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+  }
+
+  .loader__spinner {
+    animation: none;
   }
 }

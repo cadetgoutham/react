@@ -1,4 +1,3 @@
-import React from 'react'
 import image from '../images/Brown Mystery Movie Poster .png'
 import { Link } from 'react-router-dom'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
@@ -6,17 +5,16 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 import Loader from './Loader'
 
 export default function MovieCard({ genreList, loading, error }) {
-    if (error && !loading) {
-        return (
-            <div className="movie-error" role="alert">
-                <h2>Unable to load movies</h2>
-                <p>{error.message}</p>
-            </div>
-        )
+    if (loading) {
+        return <div className="loading-state"><Loader /></div>
     }
 
-    if (loading || !genreList?.length) {
-        return <div className="loading-state"><Loader /></div>
+    if (error) {
+        return <p className="request-error" role="alert">{error.message}</p>
+    }
+
+    if (!genreList.length) {
+        return <p className="empty-state" role="status">No matching movies found. Try another search or category.</p>
     }
 
     return (
@@ -34,6 +32,12 @@ export default function MovieCard({ genreList, loading, error }) {
                                 className="movie-poster-image"
                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                 alt={`${title} movie poster`}
+                                onError={({ currentTarget }) => {
+                                    if (currentTarget.getAttribute('src') !== image) {
+                                        currentTarget.src = image
+                                        currentTarget.alt = 'Movie poster unavailable'
+                                    }
+                                }}
                             />
                         ) : (
                             <img className="movie-poster-image" src={image} alt="Movie poster unavailable" />

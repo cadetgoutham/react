@@ -1,28 +1,55 @@
 # MovieQ
 
-MovieQ is a React movie browser backed by a small Express server. The server proxies TMDB requests so the TMDB API key is never sent to the browser.
+A static React movie browser that requests TMDB data directly from the browser.
 
-## Configure the TMDB key
+## Requirements
 
-The key that was previously in frontend source should be considered exposed. Revoke or rotate it in your TMDB account before deploying this version.
-
-For local development, copy `.env.example` to `.env` and set `TMDB_API_KEY` to the rotated key. Keep the key server-side: do not add a `REACT_APP_` prefix, commit `.env`, or put the key in frontend code.
+- Node.js 22 or newer (Netlify builds use Node.js 22).
+- A TMDB API key.
 
 ## Local development
 
-Requires Node.js 18 or newer.
+1. Run `npm ci` in this directory.
+2. Copy `.env.example` to `.env` and set `REACT_APP_API_KEY` to your TMDB API key.
+3. Run `npm start`.
+4. Open `http://localhost:3000`.
 
-1. Install dependencies with `npm install`.
-2. Create and configure `.env` as described above.
-3. In one terminal, run `npm run server`.
-4. In another terminal, run `npm start`.
+Restart the React development server after environment variable changes.
+No API server or Netlify function is required.
 
-The React development server proxies `/api/tmdb` requests to Express on port 5001.
+`REACT_APP_API_KEY` is embedded in the public browser bundle at build time and
+visible in network requests. This setup cannot keep the key secret. Never use
+private credentials in a React environment variable. Do not commit `.env` or
+hardcode a key in source files.
 
-If movies do not load, check that the actual `.env` file (not just `.env.example`) contains `TMDB_API_KEY` and that `npm run server` is running. Restart the React development server after changing its proxy configuration, and restart Express after changing `.env`. Failed requests appear as an error on the movie listing rather than an endless loader.
+## Validation
 
-## Production
+Run these commands from this directory:
 
-Set `TMDB_API_KEY` in the hosting provider's server-side environment configuration. Build the React app with `npm run build`, then start the Express server with `npm run server`. The server serves both the built app and the TMDB proxy.
+```sh
+npm test -- --watchAll=false --runInBand
+npm run build
+```
 
-The proxy allows only the TMDB endpoints MovieQ uses and limits each client to 100 requests per 15 minutes. If the host sits behind a reverse proxy, set `TRUST_PROXY_HOPS` to the number of trusted proxy hops reported by that host.
+Tests mock TMDB requests and require no live credentials. The app uses Create
+React App; a future build-tool migration should be evaluated separately.
+
+## Netlify deployment
+
+Connect this repository to Netlify and use the root `netlify.toml`. It sets:
+
+- Base directory: `movieq`
+- Build command: `npm run build`
+- Publish directory: `build`
+
+Set `REACT_APP_API_KEY` in Netlify environment variables with **Builds** scope
+for every deployment context you use, then rebuild and redeploy. A runtime-only
+variable will not update the compiled app. Remove the old `TMDB_API_KEY` setting.
+The root configuration includes a fallback for direct React Router URLs.
+
+Before going live, verify movie search, pagination, genres, detail pages, and
+direct route refreshes on a Netlify deploy preview. Review dependency
+advisories and your TMDB licensing/attribution obligations before launch.
+
+The UI shows a loader while requests are pending, an actionable error on
+failure, and a message when a completed search has no matches.

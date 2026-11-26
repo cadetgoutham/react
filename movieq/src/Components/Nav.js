@@ -1,9 +1,8 @@
 import { useState, useContext } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FiCalendar, FiGrid, FiHome, FiMenu, FiPlay, FiSearch, FiTrendingUp, FiX } from 'react-icons/fi'
 import logo from '../images/moviefinder.png'
 import { UserContext } from '../App'
-import { fetchMovieList } from '../tmdb'
 
 const Navdata = [
     { name: 'Home', link: '/', icon: FiHome },
@@ -14,47 +13,19 @@ const Navdata = [
 ]
 
 export default function NavBar() {
+
     const [searchmovie, setSearchMovie] = useState('')
-    const {
-        setMovieList, setTotalPages, setLoading, setError, page, moviegenre,
-        activemobile, setActivemobile, setActivePage
-    } = useContext(UserContext)
+    const { activemobile, setActivemobile } = useContext(UserContext)
     const location = useLocation()
-
-    const getData = async (keyword) => {
-        setLoading(true)
-        setError(null)
-        let url = `/api/tmdb/search/movie?with_origin_country=IN&language=en-US&query=${encodeURIComponent(keyword)}&page=1&include_adult=true`
-        if (keyword === '') {
-            if (location.pathname === '/genre') {
-                url = `/api/tmdb/discover/movie?with_genres=${moviegenre}&with_origin_country=IN&page=${page}`
-            } else if (location.pathname === '/upcoming') {
-                url = `/api/tmdb/movie/upcoming?with_origin_country=IN&language=en-US&page=${page}`
-            } else if (location.pathname === '/trending') {
-                url = `/api/tmdb/trending/movie/day?with_origin_country=IN&page=${page}`
-            } else if (location.pathname === '/anime') {
-                url = `/api/tmdb/discover/movie?with_genres=${moviegenre}&with_keywords=210024%7C287501&page=${page}`
-            } else {
-                url = `/api/tmdb/trending/movie/day?with_origin_country=IN&page=${page}`
-            }
-        }
-
-        try {
-            const result = await fetchMovieList(url)
-            setMovieList(result.results)
-            setTotalPages(result.total_pages)
-            setLoading(false)
-        } catch (error) {
-            setError(error)
-            setLoading(false)
-        }
-        setSearchMovie('')
-        setActivemobile(false)
-    }
+    const navigate = useNavigate()
 
     const handleSearch = (event) => {
         event.preventDefault()
-        getData(searchmovie.trim())
+        const query = searchmovie.trim()
+        const pathname = Navdata.some(({ link }) => link === location.pathname) ? location.pathname : '/'
+        navigate({ pathname, search: query ? `?${new URLSearchParams({ query })}` : '' })
+        setSearchMovie('')
+        setActivemobile(false)
     }
 
     return (
@@ -82,7 +53,6 @@ export default function NavBar() {
                     to="/"
                     className="movie-brand"
                     onClick={() => {
-                        setActivePage('/')
                         setActivemobile(false)
                     }}
                 >
@@ -99,7 +69,6 @@ export default function NavBar() {
                                 className={location.pathname === link ? 'active' : ''}
                                 aria-current={location.pathname === link ? 'page' : undefined}
                                 onClick={() => {
-                                    setActivePage(link)
                                     setActivemobile(false)
                                 }}
                             >

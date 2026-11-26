@@ -1,32 +1,34 @@
-export async function fetchTmdb(url) {
-    const response = await fetch(url)
-
-    if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-            throw new Error('Movie service authentication failed. Check the server TMDB_API_KEY.')
-        }
-        if (response.status === 429) {
-            throw new Error('Too many movie requests. Please try again later.')
-        }
-        throw new Error(`Movie service request failed (HTTP ${response.status}). Check that the MovieQ API server is running.`)
+export async function fetchTmdb(endpoint, parameters = {}, signal) {
+    const apiKey = process.env.REACT_APP_API_KEY?.trim()
+    console.log('API Key:', apiKey)
+    if (!apiKey) {
+        throw new Error('REACT_APP_API_KEY is missing. Set it in your environment and restart the app or rebuild.')
     }
+
+    const query = new URLSearchParams(parameters)
+    query.set('api_key', apiKey)
+    const response = await fetch(`https://api.themoviedb.org/3/${endpoint}?${query}`, { signal })
 
     if (!response.headers.get('content-type')?.includes('application/json')) {
-        throw new Error('The movie API returned an unexpected response. Check that the MovieQ API server is running.')
+        throw new Error('The movie service returned an unexpected response. Please try again.')
     }
-
-    return response.json()
+    const payload = await response.json()
+    if (!response.ok) {
+        throw new Error(payload.status_message || `Movie request failed (HTTP ${response.status}). Please try again.`)
+    }
+    return payload
 }
 
-export async function fetchMovieList(url) {
-    const result = await fetchTmdb(url)
+export async function fetchMovieList(endpoint, parameters, signal) {
+    const payload = await fetchTmdb(endpoint, parameters, signal)
     if (
-        !result
-        || !Array.isArray(result.results)
-        || !Number.isInteger(result.total_pages)
-        || result.total_pages < 0
+        !payload
+        || !Array.isArray(payload.results)
+        || !payload.results.every((movie) => movie && Number.isInteger(movie.id) && movie.id > 0)
+        || !Number.isInteger(payload.total_pages)
+        || payload.total_pages < 0
     ) {
         throw new Error('The movie service returned invalid movie data.')
     }
-    return result
+    return { ...payload, total_pages: Math.min(payload.total_pages, 500) }
 }
